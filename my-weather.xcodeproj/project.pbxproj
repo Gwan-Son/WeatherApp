@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		658F0D11526A1961431D17E9 /* Pods_my_weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B575A73B37B797ECDADDD39A /* Pods_my_weather.framework */; };
 		9F830A8B2C78389500037DE0 /* my_weatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F830A8A2C78389500037DE0 /* my_weatherApp.swift */; };
-		9F830A8D2C78389500037DE0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F830A8C2C78389500037DE0 /* ContentView.swift */; };
+		9F830A8D2C78389500037DE0 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F830A8C2C78389500037DE0 /* WeatherView.swift */; };
 		9F830A8F2C78389600037DE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F830A8E2C78389600037DE0 /* Assets.xcassets */; };
 		9F830A922C78389600037DE0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F830A912C78389600037DE0 /* Preview Assets.xcassets */; };
 		9F830A9C2C78389600037DE0 /* my_weatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F830A9B2C78389600037DE0 /* my_weatherTests.swift */; };
@@ -17,6 +17,7 @@
 		9F830AA82C78389600037DE0 /* my_weatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F830AA72C78389600037DE0 /* my_weatherUITestsLaunchTests.swift */; };
 		9FEEC1E32C78596A00C95E02 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC1E22C78596A00C95E02 /* WeatherResponse.swift */; };
 		9FEEC1E52C7859B800C95E02 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC1E42C7859B800C95E02 /* WeatherService.swift */; };
+		9FEEC1E72C7B0E1200C95E02 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC1E62C7B0E1200C95E02 /* WeatherViewModel.swift */; };
 		B43C6D99FA4E4032F83B8713 /* Pods_my_weatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3DA6973D1E8EEDA18AD754 /* Pods_my_weatherTests.framework */; };
 		E615422FF5642911DD8146EC /* Pods_my_weather_my_weatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB937CC1A32228E3ECA52540 /* Pods_my_weather_my_weatherUITests.framework */; };
 /* End PBXBuildFile section */
@@ -45,7 +46,7 @@
 		867BE37107378C5766ABC28E /* Pods-my-weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my-weather.release.xcconfig"; path = "Target Support Files/Pods-my-weather/Pods-my-weather.release.xcconfig"; sourceTree = "<group>"; };
 		9F830A872C78389500037DE0 /* my-weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "my-weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F830A8A2C78389500037DE0 /* my_weatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_weatherApp.swift; sourceTree = "<group>"; };
-		9F830A8C2C78389500037DE0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9F830A8C2C78389500037DE0 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		9F830A8E2C78389600037DE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F830A912C78389600037DE0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9F830A972C78389600037DE0 /* my-weatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "my-weatherTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +56,7 @@
 		9F830AA72C78389600037DE0 /* my_weatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_weatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9FEEC1E22C78596A00C95E02 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		9FEEC1E42C7859B800C95E02 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		9FEEC1E62C7B0E1200C95E02 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		A281070E1BD4C1044F9F53BE /* Pods-my-weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-my-weather.debug.xcconfig"; path = "Target Support Files/Pods-my-weather/Pods-my-weather.debug.xcconfig"; sourceTree = "<group>"; };
 		B575A73B37B797ECDADDD39A /* Pods_my_weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB937CC1A32228E3ECA52540 /* Pods_my_weather_my_weatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_my_weather_my_weatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,9 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				9F830A8A2C78389500037DE0 /* my_weatherApp.swift */,
-				9F830A8C2C78389500037DE0 /* ContentView.swift */,
+				9F830A8C2C78389500037DE0 /* WeatherView.swift */,
 				9FEEC1E22C78596A00C95E02 /* WeatherResponse.swift */,
 				9FEEC1E42C7859B800C95E02 /* WeatherService.swift */,
+				9FEEC1E62C7B0E1200C95E02 /* WeatherViewModel.swift */,
 				9F830A8E2C78389600037DE0 /* Assets.xcassets */,
 				9F830A902C78389600037DE0 /* Preview Content */,
 			);
@@ -411,8 +414,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FEEC1E72C7B0E1200C95E02 /* WeatherViewModel.swift in Sources */,
 				9FEEC1E52C7859B800C95E02 /* WeatherService.swift in Sources */,
-				9F830A8D2C78389500037DE0 /* ContentView.swift in Sources */,
+				9F830A8D2C78389500037DE0 /* WeatherView.swift in Sources */,
 				9FEEC1E32C78596A00C95E02 /* WeatherResponse.swift in Sources */,
 				9F830A8B2C78389500037DE0 /* my_weatherApp.swift in Sources */,
 			);
@@ -488,7 +492,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -551,7 +555,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -581,12 +585,14 @@
 				DEVELOPMENT_ASSET_PATHS = "\"my-weather/Preview Content\"";
 				DEVELOPMENT_TEAM = 7P5U4N4C5Z;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -611,12 +617,14 @@
 				DEVELOPMENT_ASSET_PATHS = "\"my-weather/Preview Content\"";
 				DEVELOPMENT_TEAM = 7P5U4N4C5Z;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
