@@ -3,28 +3,41 @@
 //  my-weather
 //
 //  Created by 심관혁 on 8/23/24.
-//
+//  https://app.quicktype.io/ - JSON to swift
 
 import Foundation
 
+// MARK: - WeatherResponse
 struct WeatherResponse: Codable {
-    let response: ResponseBody
+    let response: Response
 }
 
-struct ResponseBody: Codable {
-    let body: ResponseBodyItems
+// MARK: - Response
+struct Response: Codable {
+    let header: Header
+    let body: Body
 }
 
-struct ResponseBodyItems: Codable {
-    let items: ResponseItems
+// MARK: - Body
+struct Body: Codable {
+    let dataType: String
+    let items: Items
+    let pageNo, numOfRows, totalCount: Int
 }
 
-struct ResponseItems: Codable {
-    let item: [WeatherItem]
+// MARK: - Items
+struct Items: Codable {
+    let item: [Item]
 }
 
-struct WeatherItem: Codable {
-    let category: String // PTY(강수형태), T3H(3시간 기온)
-    let fcstValue: String // 예보 값
-    let fcstTime: String // 예보 시각
+// MARK: - Item
+struct Item: Codable {
+    let baseDate, baseTime, category, fcstDate: String
+    let fcstTime, fcstValue: String
+    let nx, ny: Int
+}
+
+// MARK: - Header
+struct Header: Codable {
+    let resultCode, resultMsg: String
 }
