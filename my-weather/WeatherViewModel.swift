@@ -18,13 +18,14 @@ class WeatherViewModel: ObservableObject {
             guard let self = self else { return }
             guard let items = weatherResponse?.response.body.items.item else { return }
             
-            for item in items {
-                if item.category == "T3H" {
-                    self.temperature = "\(item.fcstValue)°C"
-                } else if item.category == "PTY" {
-                    self.description = self.parsePTY(value: item.fcstValue)
-                }
-            }
+//            for item in items {
+//                if item.category.rawValue == "T1H" {
+//                    self.temperature = "\(item.fcstValue)°C"
+//                } else if item.category.rawValue == "PTY" {
+//                    self.description = self.parsePTY(value: item.fcstValue)
+//                }
+//            }
+            print("완료")
         }
     }
     
