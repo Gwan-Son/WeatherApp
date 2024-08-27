@@ -19,7 +19,7 @@ class WeatherService {
             "pageNo": "1",
             "dataType": "JSON",
             "base_date": getCurrentDate(),
-            "base_time": "0500", // TODO: - 현재 시각별로 계산하는 dateFomatter 추가해야함
+            "base_time": "0500", // 단기예보는 0200,0500,0800,1100,1400,1700,2000,2300(1일 8회)
             "nx": nx,
             "ny": ny
         ]
@@ -28,11 +28,9 @@ class WeatherService {
             .responseDecodable(of: WeatherResponse.self) { response in
             switch response.result {
             case .success(let response):
-                print(response.response.body.items.item)
-//                completion(value)
+                completion(response)
             case .failure(let error):
                 print(error)
-//                print("Error: \(error.localizedDescription)")
             }
         }
     }
