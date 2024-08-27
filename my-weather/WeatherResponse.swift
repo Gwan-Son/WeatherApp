@@ -32,7 +32,8 @@ struct Items: Codable {
 
 // MARK: - Item
 struct Item: Codable {
-    let baseDate, baseTime, category, fcstDate: String
+    let category: String // SKY: 하늘형태, POP: 강수확률, PTY: 강수형태, REH: 습도, TMP: 1시간 기온, TMN: 일 최저기온, TMX: 일 최고기온, WSD: 풍속
+    let baseDate, baseTime, fcstDate: String
     let fcstTime, fcstValue: String
     let nx, ny: Int
 }
