@@ -12,6 +12,14 @@ class WeatherViewModel: ObservableObject {
     @Published var description: String = "--"
     
     private var weatherService = WeatherService()
+    private var locationManager = LocationManager.shared
+    private var ltcManager = LTCManager.shared
+    
+    init() {
+        let nxny = locationManager.sendLocation()
+        let ltc = ltcManager.LTC(longitude: nxny[0], latitude: nxny[1])
+        self.fetchWeather(nx: ltc[0], ny: ltc[1])
+    }
     
     func fetchWeather(nx: String, ny: String) {
         weatherService.getWeather(for: nx, ny: ny) { [weak self] weatherResponse in
