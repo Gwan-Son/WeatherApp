@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherView: View {
     @ObservedObject var viewModel = WeatherViewModel()
+    @State var locationManager = LocationManager.shared
     
     
     var body: some View {
@@ -38,6 +39,9 @@ struct WeatherView: View {
 
         }
         .padding()
+        .task {
+            await locationManager.checkUserDeviceLocationServiceAuthorization()
+        }
     }
 }
 
