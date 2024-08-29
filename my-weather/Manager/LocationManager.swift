@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Foundation
+import SwiftUI
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
@@ -15,17 +16,33 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     private override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.requestLocation()
-        locationManager.startUpdatingLocation()
+//        locationManager.startUpdatingLocation()
     }
     
-//    func requestLocation() {
-//        locationManager.requestWhenInUseAuthorization()
-//    }
-//    
-//    func startUpdateLocation() {
-//        locationManager.startUpdatingLocation()
-//    }
+    func checkUserDeviceLocationServiceAuthorization() async {
+        let authorizationStatus = locationManager.authorizationStatus
+        
+        if authorizationStatus == .authorizedAlways {
+        }
+        else if authorizationStatus == .authorizedWhenInUse {
+        }
+        else if authorizationStatus == .denied {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+        }
+        else if authorizationStatus == .restricted || authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func requestLocation() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func startUpdateLocation() {
+        locationManager.startUpdatingLocation()
+    }
     
     func stopUpdateLocation() {
         locationManager.stopUpdatingLocation()
@@ -35,6 +52,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 
         print(locations[0].coordinate.latitude)
         print(locations[0].coordinate.longitude)
+        stopUpdateLocation()
     }
     
     func sendLocation() -> [String] {
@@ -45,5 +63,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    private func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) async {
+        await checkUserDeviceLocationServiceAuthorization()
     }
 }
