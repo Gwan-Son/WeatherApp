@@ -21,14 +21,13 @@ class LTCManager {
     init() {
         
     }
-    // DEBUG: 1
-    func LTC(longitude: String, latitude: String) -> LatXLngY {
-        let RE: Double = 6371.00877
-        let GRID: Double = 5.0
-        let SLAT1: Double = 30.0
-        let SLAT2: Double = 60.0
-        let OLON: Double = 126.0
-        let OLAT: Double = 38.0
+    func LTC(latitude: String, longitude: String) -> LatXLngY {
+        let RE = 6371.00877
+        let GRID = 5.0
+        let SLAT1 = 30.0
+        let SLAT2 = 60.0
+        let OLON = 126.0
+        let OLAT = 38.0
         let XO: Double = 43
         let YO: Double = 136
         
@@ -51,6 +50,7 @@ class LTCManager {
         ro = re * sf / pow(ro, sn)
         var rs = LatXLngY(x: 0, y: 0)
         var ra = tan(Double.pi * 0.25 + (lat_X) * DEGRAD * 0.5)
+
         ra = re * sf / pow(ra, sn)
         var theta = lng_Y * DEGRAD - olon
         if theta > Double.pi {

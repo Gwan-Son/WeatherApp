@@ -17,8 +17,7 @@ class WeatherViewModel: ObservableObject {
     
     init() {
         let nxny = locationManager.sendLocation()
-        print("nxny: \(nxny)")
-        let ltc = ltcManager.LTC(longitude: nxny[0], latitude: nxny[1])
+        let ltc = ltcManager.LTC(latitude: nxny[0], longitude: nxny[1])
         self.fetchWeather(nx: String(ltc.x), ny: String(ltc.y))
     }
     
