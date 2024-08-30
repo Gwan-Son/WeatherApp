@@ -6,10 +6,13 @@
 //
 
 import Combine
+import Foundation
 
 class WeatherViewModel: ObservableObject {
     @Published var temperature: String = "--"
-    @Published var description: String = "--"
+    @Published var description: String = "sun.max.fill"
+    var skyCode: Int = 0
+    var ptyCode: Int = 0
     
     private var weatherService = WeatherService()
     private var locationManager = LocationManager.shared
@@ -30,40 +33,104 @@ class WeatherViewModel: ObservableObject {
                 if item.category == "TMP" {
                     self.temperature = "\(item.fcstValue)°C"
                 } else if item.category == "PTY" {
-                    self.description = self.parsePTY(value: item.fcstValue)
+                    self.ptyCode = self.parsePTY(value: item.fcstValue)
+                } else if item.category == "SKY" {
+                    self.skyCode = self.parseSKY(value: item.fcstValue)
                 }
             }
-            print("완료")
+
+            DispatchQueue.main.async {
+                self.description = self.setWeatherImage(skycode: self.skyCode, ptyCode: self.ptyCode)
+            }
         }
     }
     
-    private func parsePTY(value: String) -> String {
+    private func parsePTY(value: String) -> Int {
         switch value {
         case "0":
-            return "맑음"
+            return 0
         case "1":
-            return "비"
+            return 1
         case "2":
-            return "비/눈"
+            return 2
         case "3":
-            return "눈"
+            return 3
         case "4":
-            return "소나기"
+            return 4
         default:
-            return "알 수 없음"
+            return -1
         }
     }
     
-    private func parseSKY(value: String) -> String {
+    private func parseSKY(value: String) -> Int {
         switch value {
         case "1":
-            return "맑음"
+            return 1
         case "3":
-            return "구름많음"
+            return 3
         case "4":
-            return "흐림"
+            return 4
         default:
-            return "알 수 없음"
+            return -1
+        }
+    }
+    
+    private func setWeatherImage(skycode: Int, ptyCode: Int) -> String {
+        if ptyCode == 0 {
+            switch skycode {
+            case 1:
+                return "sun.max.fill"
+            case 3:
+                return "smoke.fill"
+            case 4:
+                return "cloud.fill"
+            default:
+                return "sun.max.fill"
+            }
+        } else if ptyCode == 1 {
+            switch skycode {
+            case 1:
+                return "sun.rain.fill"
+            case 3:
+                return "cloud.rain.fill"
+            case 4:
+                return "cloud.sun.rain.fill"
+            default:
+                return "cloud.sun.fill"
+            }
+        } else if ptyCode == 2 {
+            switch skycode {
+            case 1:
+                return "sun.rain.fill"
+            case 3:
+                return "cloud.sleet.fill"
+            case 4:
+                return "cloud.sleet.fill"
+            default:
+                return "sun.rain.fill"
+            }
+        } else if ptyCode == 3 {
+            switch skycode {
+            case 1:
+                return "sun.snow.fill"
+            case 3:
+                return "cloud.snow.fill"
+            case 4:
+                return "cloud.snow.fill"
+            default:
+                return "cloud.snow.fill"
+            }
+        } else {
+            switch skycode {
+            case 1:
+                return "sun.rain.fill"
+            case 3:
+                return "cloud.drizzle.fill"
+            case 4:
+                return "cloud.drizzle.fill"
+            default:
+                return "cloud.drizzle.fill"
+            }
         }
     }
 }
