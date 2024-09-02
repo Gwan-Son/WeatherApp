@@ -12,11 +12,13 @@ import SwiftUI
 class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     var locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
+    let locale = Locale(identifier: "Ko-kr")
+    var locationName: String = ""
     
     private override init() {
         super.init()
         locationManager.delegate = self
-//        locationManager.startUpdatingLocation()
     }
     
     func checkUserDeviceLocationServiceAuthorization() async {
@@ -58,6 +60,15 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func sendLocation() -> [String] {
         let latitude = locationManager.location?.coordinate.latitude
         let longitude = locationManager.location?.coordinate.longitude
+        geocoder.reverseGeocodeLocation(locationManager.location!, preferredLocale: locale) { [weak self] placemarks, _ in
+            guard let placemarks = placemarks,
+                  let address = placemarks.last else { return }
+            DispatchQueue.main.async {
+                let admin = address.administrativeArea ?? "--"
+                let sub = address.subLocality ?? "--"
+                self?.locationName = admin + " " + sub
+            }
+        }
         return ["\(latitude!)","\(longitude!)"]
     }
     
