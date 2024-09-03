@@ -6,40 +6,75 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WeatherView: View {
     @ObservedObject var viewModel = WeatherViewModel()
     @State var locationManager = LocationManager.shared
+    @State private var showContent = false
+    @State private var cancellables = Set<AnyCancellable>()
     
     var body: some View {
         ZStack {
-            BackgroundView(topColor: .blue, bottomColor: .purple)
-            VStack {
-                CityTextView(cityName: locationManager.locationName)
-                WeatherStatusView(imageName: viewModel.weathers.first?.weatherImage ?? "sun.max.fill" , temperature: viewModel.weathers.first?.temperature ?? "-°", minTemp: viewModel.minTemperature, maxTemp: viewModel.maxTemperature)
-                
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(viewModel.weathers) { weather in
-                            
-                            WeatherDayView(time: weather.fcstTime, imageName: weather.weatherImage, temperature: weather.temperature)
+            if showContent {
+                ZStack {
+                    BackgroundView(topColor: .blue, bottomColor: .yellow)
+                    VStack {
+                        CityTextView(cityName: locationManager.locationName)
+                        WeatherStatusView(imageName: viewModel.weathers.first?.weatherImage ?? "sun.max.fill" , temperature: viewModel.weathers.first?.temperature ?? "-°", minTemp: viewModel.minTemperature, maxTemp: viewModel.maxTemperature)
+                        
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .padding(.horizontal, 20)
+                                .frame(height: 150)
+                                .foregroundColor(.black)
+                                .opacity(0.2)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 20) {
+                                    ForEach(viewModel.weathers) { weather in
+                                        
+                                        WeatherDayView(time: weather.fcstTime, imageName: weather.weatherImage, temperature: weather.temperature)
+                                    }
+                                    //                            WeatherDayView(time: "오후 1시", imageName: "cloud.fill", temperature: "25°C")
+                                    //                            WeatherDayView(time: "오후 2시", imageName: "cloud.fill", temperature: "25°C")
+                                    //                            WeatherDayView(time: "오후 3시", imageName: "cloud.fill", temperature: "25°C")
+                                    //                            WeatherDayView(time: "오후 4시", imageName: "cloud.fill", temperature: "25°C")
+                                    //                            WeatherDayView(time: "오후 5시", imageName: "cloud.fill", temperature: "25°C")
+                                }
+                            }
+                            .padding(.horizontal, 30)
                         }
-//                        WeatherDayView(time: "오후 1시", imageName: "cloud.fill", temperature: "25°C")
-//                        WeatherDayView(time: "오후 2시", imageName: "cloud.fill", temperature: "25°C")
-//                        WeatherDayView(time: "오후 3시", imageName: "cloud.fill", temperature: "25°C")
-//                        WeatherDayView(time: "오후 4시", imageName: "cloud.fill", temperature: "25°C")
-//                        WeatherDayView(time: "오후 5시", imageName: "cloud.fill", temperature: "25°C")
+                        
+                        
+                        Spacer()
                     }
                 }
-                .padding(.horizontal, 20)
-                
-                Spacer()
+                .transition(.opacity)
+            }
+            else {
+                LoadingView()
+                    .transition(.opacity)
             }
         }
         .task {
             await locationManager.checkUserDeviceLocationServiceAuthorization()
+            bindLoadingState()
         }
+    }
+    
+    private func bindLoadingState() {
+        viewModel.$isLoadingWeather
+            .dropFirst()
+            .removeDuplicates()
+            .filter{ !$0 }
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    showContent = true
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -120,5 +155,19 @@ struct WeatherStatusView: View {
             }
         }
         .padding(.bottom, 40)
+    }
+}
+
+struct LoadingView: View {
+    var body: some View {
+        ZStack {
+            BackgroundView(topColor: .blue, bottomColor: .yellow)
+            VStack(alignment: .center, spacing: 10) {
+                ProgressView()
+                Text("날씨를 가져오는 중입니다...")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+            }
+        }
     }
 }

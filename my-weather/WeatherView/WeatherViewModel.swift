@@ -12,6 +12,7 @@ class WeatherViewModel: ObservableObject {
     @Published var weathers: [WeatherModel] = []
     @Published var minTemperature: String = "-°"
     @Published var maxTemperature: String = "-°"
+    @Published var isLoadingWeather: Bool = false
     var weather: WeatherModel = WeatherModel(
         dayOfWeek: "",
         fcstDate: "",
@@ -63,6 +64,7 @@ class WeatherViewModel: ObservableObject {
     }
     
     func fetchWeather(nx: String, ny: String) {
+        isLoadingWeather = true
         weatherService.getWeather(for: nx, ny: ny) { [weak self] weatherResponse in
             guard let self = self else { return }
             guard let items = weatherResponse?.response.body.items.item else { return }
@@ -81,6 +83,7 @@ class WeatherViewModel: ObservableObject {
                     initWeather(weather: &weather)
                 }
             }
+            self.isLoadingWeather = false
         }
     }
     
@@ -237,6 +240,7 @@ class WeatherViewModel: ObservableObject {
         case "PCP":
             weather.pcp = value
         case "REH":
+            print("REH: \(value)")
             weather.reh = value
         case "SNO":
             weather.sno = value
