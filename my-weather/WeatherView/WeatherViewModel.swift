@@ -13,6 +13,9 @@ class WeatherViewModel: ObservableObject {
     @Published var minTemperature: String = "-°"
     @Published var maxTemperature: String = "-°"
     @Published var isLoadingWeather: Bool = false
+    @Published var isShowingDetail: Bool = false
+    @Published var isRehPop: Bool = false
+    @Published var todayWeahters: [WeatherModel] = []
     var weather: WeatherModel = WeatherModel(
         dayOfWeek: "",
         fcstDate: "",
@@ -83,8 +86,13 @@ class WeatherViewModel: ObservableObject {
                     initWeather(weather: &weather)
                 }
             }
+            filterTodayWeather()
             self.isLoadingWeather = false
         }
+    }
+    
+    func filterTodayWeather(){
+        todayWeahters = weathers.filter { $0.fcstDate == dateChange(dateString: getCurrentDate()) }
     }
     
     private func getCurrentTime() -> String {
@@ -240,7 +248,6 @@ class WeatherViewModel: ObservableObject {
         case "PCP":
             weather.pcp = value
         case "REH":
-            print("REH: \(value)")
             weather.reh = value
         case "SNO":
             weather.sno = value
