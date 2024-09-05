@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct WeatherView: View {
-    @ObservedObject var viewModel = WeatherViewModel()
+    @StateObject var viewModel = WeatherViewModel()
     @State var locationManager = LocationManager.shared
     @State private var showContent = false
     @State private var cancellables = Set<AnyCancellable>()
@@ -36,16 +36,32 @@ struct WeatherView: View {
                                         
                                         WeatherDayView(time: weather.fcstTime, imageName: weather.weatherImage, temperature: weather.temperature)
                                     }
-                                    //                            WeatherDayView(time: "오후 1시", imageName: "cloud.fill", temperature: "25°C")
-                                    //                            WeatherDayView(time: "오후 2시", imageName: "cloud.fill", temperature: "25°C")
-                                    //                            WeatherDayView(time: "오후 3시", imageName: "cloud.fill", temperature: "25°C")
-                                    //                            WeatherDayView(time: "오후 4시", imageName: "cloud.fill", temperature: "25°C")
-                                    //                            WeatherDayView(time: "오후 5시", imageName: "cloud.fill", temperature: "25°C")
                                 }
                             }
                             .padding(.horizontal, 30)
                         }
                         
+                        HStack(spacing: 10) {
+                            Button {
+                                viewModel.isRehPop = true
+                                viewModel.isShowingDetail.toggle()
+                            } label: {
+                                WeatherSubView(description: "습도", percent: viewModel.weathers.first?.reh ?? "--", leftOrRight: true)
+                            }
+                            .sheet(isPresented: $viewModel.isShowingDetail, content: {
+                                WeatherDetailView(weathers: $viewModel.todayWeahters, rehpop: $viewModel.isRehPop)
+                            })
+
+                            Button {
+                                viewModel.isRehPop = false
+                                viewModel.isShowingDetail.toggle()
+                            } label: {
+                                WeatherSubView(description: "강수확률", percent: viewModel.weathers.first?.pop ?? "--", leftOrRight: false)
+                            }
+                            .sheet(isPresented: $viewModel.isShowingDetail, content: {
+                                WeatherDetailView(weathers: $viewModel.todayWeahters, rehpop: $viewModel.isRehPop)
+                            })
+                        }
                         
                         Spacer()
                     }
@@ -168,6 +184,54 @@ struct LoadingView: View {
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
             }
+        }
+    }
+}
+
+struct WeatherSubView: View {
+    var description: String
+    var percent: String
+    var leftOrRight: Bool // t - left
+    var imageName: String {
+        switch description {
+        case "습도":
+            return "humidity.fill"
+        case "강수확률":
+            return "drop.fill"
+        default:
+            return "drop.fill"
+        }
+    }
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .padding(leftOrRight ? .leading : .trailing, 20)
+                .frame(height: 150)
+                .foregroundColor(.black)
+                .opacity(0.2)
+            
+            VStack() {
+                Spacer()
+                HStack() {
+                    Image(systemName: imageName)
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                    
+                    Text("\(description)")
+                        .font(.system(size: 20))
+                    Spacer()
+                }
+                .padding(.top, -40)
+                .padding(.leading, 10)
+                
+                Text("\(percent)%")
+                    .font(.system(size: 32))
+                Spacer()
+            }
+            .foregroundColor(.white)
+            .padding(leftOrRight ? .leading : .trailing, leftOrRight ? 20 : 10)
         }
     }
 }
